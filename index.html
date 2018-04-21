@@ -1,0 +1,264 @@
+<!--
+Mobile web development
+Template for General purpose html5 page with JQuery Mobile
+Created by: Hyerim Kim , Chevy McMartin
+email: Kkim8301@conestogac.on.ca ,
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pokedex</title>
+    <!--jQuery-->
+    <script src="_lib/js/lib/jquery-2.1.4.js"></script>
+    <!--jQuery mobile-->
+    <script src="_lib/js/lib/jquery.mobile-1.4.5.js"></script>
+    <!--jQuery validate-->
+    <script src="_lib/js/lib/jquery.validate.js"></script>
+    <!--jQuery mobile css-->
+    <link rel="stylesheet" type="text/css" href="_lib/css/lib/jquery.mobile-1.4.5.css">
+    <link rel="icon" type="image/ico" href="_lib/img/pokemon.ico"/>
+    <!--my js and css-->
+    <script src="_lib/js/database.js"></script>
+    <script src="_lib/js/DAL.js"></script>
+    <script src="_lib/js/global.js"></script>
+    <script src="_lib/js/util.js"></script>
+    <script src="_lib/js/facade.js"></script>
+
+</head>
+<body>
+
+<!--page 1-->
+<div data-role="page" id="HomePage">
+    <header data-role="header" data-theme="b"  data-position="fixed">
+        <h1>Welcome to Pokedex</h1>
+        <div data-role="navbar">
+            <ul >
+                <li><a href="#HomePage" data-icon="home"   class="ui-btn-active ui-state-persist" data-theme="a" >Home</a></li>
+                <li><a href="#AddPokemon" data-icon="plus" data-theme="a">Add</a></li>
+                <li><a href="#Setting" data-icon="gear"  data-theme="a">Setting</a></li>
+                <li><a href="#About" data-icon="grid"  data-theme="a">About</a></li>
+            </ul>
+        </div>
+
+
+    </header>
+    <section data-role="content">
+        <ul data-role="listview" style="margin: 10px"  data-inset="true" data-icon="false" id="PokedexList">
+            <!--  <li><a href="#Edit">
+
+                  <h3>Official Name :bulbasaur</h3>
+                  <div style="float:left; width:150px;">
+                      <img src="_lib/img/pokemonPics/bulbasaur.png" width="100px"/>
+                  </div>
+                  <div style="float:left;">
+                      <p>Number: 1 </p>
+                      <p>Nick Name : Fushigidane </p>
+                  </div>
+              </a>
+              </li>
+              <li><a href="#Edit">
+                  <h3>Business Name : Starbucks</h3>
+                  <p>Reviewer Email : Kkim8301@conestogac.on.ca</p>
+                  <p>Comments : Good Coffee but little expensive</p>
+                  <p>Overall Rating : 70%</p>
+              </a>
+              </li>
+-->
+        </ul>
+    </section>
+    <footer data-role="footer" data-theme="b" data-position="fixed">
+        <h4>&copy; 2018 Chevy & Hyerim </h4>
+    </footer>
+</div>
+
+<!--page 2-->
+<div data-role="page" id="Edit">
+    <header data-role="header" data-theme="b"  data-position="fixed">
+        <h1>Modify Pokemon</h1>
+        <div data-role="navbar">
+            <ul >
+                <li><a href="#HomePage" data-icon="home" class="ui-btn-active ui-state-persist" data-theme="a" >Home</a></li>
+                <li><a href="#AddPokemon" data-icon="plus" data-theme="a">Add</a></li>
+                <li><a href="#Setting" data-icon="gear" data-theme="a">Setting</a></li>
+                <li><a href="#About" data-icon="grid"  data-theme="a">About</a></li>
+            </ul>
+        </div>
+
+
+    </header>
+    <section data-role="content">
+        <form id="HKUpdateForm">
+            Business name: <input id="HKBusinessName2" type="text" name="businessName"><br>
+            Type: <br>
+            <select id="HKdropdownForUPdate">
+                <!--   <option value="Asian">Asian</option>
+                   <option value="Canadian">Canadian</option>
+                   <option value="Other">Other</option> -->
+            </select>
+            Reviewer Email: <input id="HKReviewerEmail2" type="text" name="emailName"><br>
+            Reviewer Comments:
+            <textarea id="HKComments2"></textarea><br>
+            Review Date:
+            <input id="HKdateForReview" type="date" name="date"><br>
+
+            <fieldset data-role="fieldcontain">
+                <label for="HKCheckBoxForReview">
+                    <p >Do you want to add your ratings?</p>
+                </label>
+                <input id="HKCheckBoxForReview" type="checkbox" name="HKratingCheckBox" value="rating" onClick="ShowOrHide('review')">
+            </fieldset>
+
+            <br>
+            <div id="HKDivForThreeValuesForReview">
+                Food Quality (0-5):
+                <input  id="HKFoodQualityForReview" name="foodQuality"  type="number" onchange="threeValueChanges('review')"><br>
+                Service (0-5):
+                <input  id="HKServiceForReview" name="service" type="number"  onchange="threeValueChanges('review')"><br>
+                Value (0-5):
+                <input  id="HKValueForReview" type="number" name="value" onchange="threeValueChanges('review')"><br>
+            </div>
+            Overall Ratings (1-100):
+            <input  id="HKRatingsForReview" readonly><br>
+            <div data-role="controlgroup" data-type="horizontal">
+                <button  id="HKCancel" type="button" style="background-color:yellow" >Cancel</button>
+                <button  id="HKDelete" type="button" data-theme="b" >Delete</button>
+                <!--<button  id="HKUpdate" type="submit"  class="ui-btn-active ui-state-persist"  onclick="validation('review')">Update</button>-->
+                <button type="submit" class="ui-btn-active ui-state-persist" data-inline="true" id="HKUpdate">Update</button>
+            </div>
+        </form>
+    </section>
+    <footer data-role="footer" data-theme="b" data-position="fixed">
+        <h4>&copy; 2018 Chevy & Hyerim </h4>
+    </footer>
+</div>
+
+
+<!--page 3--> //Add
+<div data-role="page" id="AddPokemon">
+    <header data-role="header" data-theme="b"  data-position="fixed">
+        <h1>Add a Pokemon</h1>
+        <div data-role="navbar">
+            <ul >
+                <li><a href="#HomePage" data-icon="home" data-theme="a" >Home</a></li>
+                <li><a href="#AddPokemon" data-icon="plus"  class="ui-btn-active ui-state-persist" data-theme="a">Add</a></li>
+                <li><a href="#Setting" data-icon="gear"  data-theme="a">Setting</a></li>
+                <li><a href="#About" data-icon="grid"  data-theme="a">About</a></li>
+            </ul>
+        </div>
+
+
+    </header>
+    <section data-role="content">
+        <form id="HKAddForm" data-ajax="false">
+            Business name: <input id="HKBusinessName" type="text" name="businessName">
+            <br>
+            Type: <br>
+
+            <select id="HKDropdown">
+                <!--
+                              <option value="Asian">Asian</option>
+                              <option value="Canadian">Canadian</option>
+                              <option value="Other" selected="selected">Other</option>
+                -->
+            </select>
+
+            Reviewer Email: <input id="HKReviewerEmail" name="emailName" type="text"><br>
+            Reviewer Comments:
+            <textarea id="HKComments"></textarea><br>
+            Review Date:
+            <input id="HKdate" type="date" name="date"><br>
+
+            <fieldset data-role="fieldcontain">
+                <label for="HKCheckBox">
+                    <p >Do you want to add your ratings?</p>
+                </label>
+                <input id="HKCheckBox" type="checkbox" name="HKratingCheckBox" value="rating" onClick="ShowOrHide('feedback')">
+            </fieldset>
+
+            <br>
+
+            <div id="HKDivForThreeValues">
+                Food Quality (0-5):
+                <input  id="HKFoodQuality" type="number" name="foodQuality" onchange="threeValueChanges('feedback')"><br>
+                Service (0-5):
+                <input  id="HKService" type="number" name="service"  onchange="threeValueChanges('feedback')"><br>
+                Value (0-5):
+                <input  id="HKValue" type="number" name="value" onchange="threeValueChanges('feedback')"><br>
+            </div>
+            Overall Ratings (1-100):
+            <input  id="HKRatings" readonly><br>
+            <!--<button  id="HKSave" type="button" data-inline="true" class="ui-btn-active ui-state-persist" onclick="validation('feedback')">Save</button>-->
+            <button type="submit" class="ui-btn-active ui-state-persist" data-inline="true" id="HKSave">Save</button>
+        </form>
+    </section>
+    <footer data-role="footer" data-theme="b" data-position="fixed">
+        <h4>&copy; 2018 Chevy & Hyerim </h4>
+    </footer>
+
+
+</div>
+<!--page 4--> //setting
+<div data-role="page" id="Setting">
+    <header data-role="header"  data-theme="b"  data-position="fixed">
+        <h1>Setting</h1>
+        <div data-role="navbar">
+            <ul >
+                <li><a href="#HomePage" data-icon="home"  data-theme="a" >Home</a></li>
+                <li><a href="#AddPokemon" data-icon="plus"  data-theme="a">Add</a></li>
+                <li><a href="#Setting" data-icon="gear" class="ui-btn-active ui-state-persist"  data-theme="a">Setting</a></li>
+                <li><a href="#About" data-icon="grid"  data-theme="a">About</a></li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content" style="background-color:white">
+        <button  id="HKClearDatabase" type="button" data-theme="b">Clear Database</button>
+        <!--
+        <h2>Hyerim's Feedback A3 App</h2>
+        <p>Welcome to the Hyerim Kim's Feedback A3 app. A prototype designed for mobile programming class. This is the first
+            iteration of the app to keep track of difference places you visited along with your reviews.</p>
+        <img src="_lib/img/magic.png" height="300px"/>
+        -->
+    </section>
+    <footer data-role="footer" data-theme="b" data-position="fixed">
+        <h4>&copy; 2018 Chevy & Hyerim </h4>
+    </footer>
+
+
+</div>
+
+<!--page 5--> //About
+<div data-role="page" id="About">
+    <header data-role="header" data-theme="b"  data-position="fixed">
+        <h1>About</h1>
+        <div data-role="navbar">
+            <ul >
+                <li><a href="#HomePage" data-icon="home" data-theme="a" >Home</a></li>
+                <li><a href="#AddPokemon" data-icon="plus" data-theme="a">Add</a></li>
+                <li><a href="#Setting" data-icon="gear"  data-theme="a" >Setting</a></li>
+                <li><a href="#About" data-icon="grid"  class="ui-btn-active ui-state-persist"data-theme="a">About</a></li>
+            </ul>
+        </div>
+    </header>
+    <section data-role="content">
+        <form id="AboutForm">
+            <!--
+            Default reviewer Email :<br>
+            <input id="HKreviewerEmail3" value="Kkim8301@conestogac.on.ca">
+            <button type="submit" id="HKSaveDefaults" type="button" class="ui-btn-active ui-state-persist" onclick="clickBtnSave()">Save Defaults</button>
+            <button  id="HKClearDatabase" type="button" data-theme="b">Clear Database</button>
+            -->
+            <h2>Pockmon</h2>
+            <p>Pokémon (Japanese: ポケモン Hepburn: Pokemon, Japanese: [pokemoɴ]; English: /ˈpoʊkɪˌmɒn, -ki-, -keɪ-/)[1][2][3] is a media franchise managed by The Pokémon Company, a Japanese consortium between Nintendo, Game Freak, and Creatures.[4] The franchise copyright is shared by all three companies, but Nintendo is the sole owner of the trademark.[5] The franchise was created by Satoshi Tajiri in 1995,[6] and is centered on fictional creatures called "Pokémon", which humans, known as Pokémon Trainers, catch and train to battle each other for sport.</p>
+            <img src="_lib/img/pokemonAbout.jpg" height="500px"/>
+        </form>
+    </section>
+</div>
+<footer data-role="footer" data-theme="b" data-position="fixed">
+    <h4>&copy; 2018 Chevy & Hyerim </h4>
+</footer>
+</div>
+
+</body>
+</html>
