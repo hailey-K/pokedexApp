@@ -18,15 +18,22 @@ var DB= {
     CreateTables: function () {
 
         function txFunction(tx) {
-            var sql;
             var option = [];
+
+            var sql = "DROP TABLE IF EXISTS Pokedex;";
+
+            function successDrop() {
+                console.info("Success: drop tables");
+            }
+
+            tx.executeSql(sql, option, successDrop, errorHandler);
 
             sql = "CREATE TABLE IF NOT EXISTS Pokedex("
                 + "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
                 +"Number INTEGER NOT NULL,"
                 +"OfficialName VARCHAR(30) NOT NULL,"
+                +"PicName VARCHAR(30) NOT NULL,"
                 + "NickName VARCHAR(30) NOT NULL);";
-
 
             function successCreate() {
                 console.info("Success: Create table: successful.");
@@ -34,15 +41,28 @@ var DB= {
 
             tx.executeSql(sql, option, successCreate, errorHandler);
 
+            console.info("Inserting tables: type");
 
             function successInsert() {
                 console.info("Success: Create table: friend successful.");
             }
-            if(GetNumberOfPokedex()==0)
-            {
-                sql = "INSERT INTO Pokedex(Number,OfficialName,NickName) VALUES(1,'Bulbasaur','Fushigidane');";
-                tx.executeSql(sql, option, successInsert, errorHandler);
-            }
+
+            sql = "INSERT INTO Pokedex(Number,OfficialName,PicName,NickName) VALUES(1,'Bulbasaur','0','Fushigidane');";
+            tx.executeSql(sql, option, successInsert, errorHandler);
+            sql = "INSERT INTO Pokedex(Number,OfficialName,PicName,NickName) VALUES(2,'Ivysaur','1','Ivysaur');";
+            tx.executeSql(sql, option, successInsert, errorHandler);
+            sql = "INSERT INTO Pokedex(Number,OfficialName,PicName,NickName) VALUES(3,'Venusaur','2','Venusaur');";
+            tx.executeSql(sql, option, successInsert, errorHandler);
+
+            sql = "CREATE TABLE IF NOT EXISTS UserPokedex("
+                + "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,"
+                +"Number INTEGER NOT NULL,"
+                +"OfficialName VARCHAR(30) NOT NULL,"
+                +"PicName VARCHAR(30) NOT NULL,"
+                + "NickName VARCHAR(30) NOT NULL);";
+            tx.executeSql(sql, option, successCreate, errorHandler);
+
+
         }
         function successTransaction() {
             console.info("Success: Create tables transaction successful");
@@ -60,6 +80,8 @@ var DB= {
                 console.info("Success: Pokedex table dropped successfully");
             }
 
+            tx.executeSql(sql, options, successDrop, errorHandler);
+            var sql = "DROP TABLE IF EXISTS UserPokedex;";
             tx.executeSql(sql, options, successDrop, errorHandler);
         }
 

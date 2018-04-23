@@ -49,13 +49,11 @@ var DB= {
             function successInsert() {
                 console.info("Success: Create table: friend successful.");
             }
-
             tx.executeSql(sql, optionType, successInsert, errorHandler);
             sql = "INSERT INTO type(name) VALUES('Asian');";
             tx.executeSql(sql, optionType, successInsert, errorHandler);
             sql = "INSERT INTO type(name) VALUES('Others');";
             tx.executeSql(sql, optionType, successInsert, errorHandler);
-
 
             console.info("Creating tables: review");
             sql = "CREATE TABLE IF NOT EXISTS review("
@@ -71,9 +69,7 @@ var DB= {
                 + "rating3 INTEGER,"
                 + "FOREIGN KEY(typeId) REFERENCES type(id));";
 
-
             tx.executeSql(sql, optionsReview, successCreate, errorHandler);
-
         }
 
         function successTransaction() {
